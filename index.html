@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <title>Shifumi !!</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div>
+        <img id="pierre" src="img/Pierre.png" alt="Pierre" />
+        <img id="feuille" src="img/Feuille.png" alt="Feuille" />
+        <img id="ciseaux" src="img/Ciseaux.png" alt="Ciseaux" />
+    </div>
+    <button>Shifumi !</button>
+    <h1></h1>
+    <h2></h2>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <!-- Script du Shifumi -->
+    <script>
+        // Sélection de l'élément
+        var player;
+        $("#pierre").click(function () {
+            $("#pierre").css("border", "5px solid green");
+            $("#feuille").css("border", "none");
+            $("#ciseaux").css("border", "none");
+            player = "Pierre";
+            console.log(player);
+        })
+        $("#feuille").click(function () {
+            $("#feuille").css("border", "5px solid green");
+            $("#pierre").css("border", "none");
+            $("#ciseaux").css("border", "none");
+            player = "Feuille";
+            console.log(player);
+        })
+        $("#ciseaux").click(function () {
+            $("#ciseaux").css("border", "5px solid green");
+            $("#pierre").css("border", "none");
+            $("#feuille").css("border", "none");
+            player = "Ciseaux";
+            console.log(player);
+        })
+
+        // Compteur victoires/défaites
+        var countVic = 0;
+        var countDef = 0;
+        var countGames = 0;
+
+        // Choix du PC
+        var computer;
+        $("button").click(function () {
+            if (player != "Pierre" && player != "Feuille" && player != "Ciseaux") {
+                return $("h2").html("Veuillez sélectionner une image.");
+            }
+            countGames++;
+            var random = Math.floor((Math.random() * 3) + 1);
+            if (random > 2) {
+                computer = "Pierre";
+            } else if (random > 1) {
+                computer = "Feuille";
+            } else if (random > 0) {
+                computer = "Ciseaux";
+            } else {
+                return $("h2").html("L'ordinateur n'a pas choisi. C'est son choix.");
+            }
+            console.log(computer);
+            $("h1").html("L'ordinateur a choisi " + computer + ".")
+            // Conditions de victoire, défaite ou égalité
+            if (player == "Pierre" && computer == "Ciseaux") {
+                countVic++;
+                $("h2").html("Victoires : " + countVic + "\nDéfaites : " + countDef + "\nVous gagnez " + (Math
+                    .trunc((
+                        100 * countVic) / countGames)) + "% de vos parties !");
+            } else if (player == "Feuille" && computer == "Pierre") {
+                countVic++;
+                $("h2").html("Victoires : " + countVic + "\nDéfaites : " + countDef + "\nVous gagnez " + (Math
+                    .trunc((
+                        100 * countVic) / countGames)) + "% de vos parties !");
+            } else if (player == "Ciseaux" && computer == "Feuille") {
+                countVic++;
+                $("h2").html("Victoires : " + countVic + "\nDéfaites : " + countDef + "\nVous gagnez " + (Math
+                    .trunc((
+                        100 * countVic) / countGames)) + "% de vos parties !");
+            } else if (player == computer) {
+                countDef++;
+                $("h2").html("Égalité !\nVous gagnez " + (Math
+                    .trunc((
+                        100 * countVic) / countGames)) + "% de vos parties !");
+            } else {
+                countDef++;
+                $("h2").html("Victoires : " + countVic + "\nDéfaites : " + countDef + "\nVous gagnez " + (Math
+                    .trunc((
+                        100 * countVic) / countGames)) + "% de vos parties !");
+            }
+        })
+    </script>
+</body>
+
+</html>
